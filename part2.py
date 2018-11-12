@@ -46,6 +46,6 @@ for i in range(0, len(three_files)):
             plt.hist(b_prime_g_div_a.ravel(),bins=25,range=[0, _max])
             plt.title('%s Channel' %col)
         
-        plt.savefig('part2_plot/B\'\/a_vs_T_image_%s_channel_%s.jpg' %(three_files[i],col))
+        plt.savefig('part2_plot/B\'_div_a_vs_T_image_%s_channel_%s.jpg' %(three_files[i],col))
         plt.gcf().clear()
 
