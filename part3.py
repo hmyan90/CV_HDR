@@ -27,7 +27,7 @@ for i in range(0, len(three_files)):
 
 def alg1():
     print("Start alg1")
-    HDR_img = np.zeros((height, width, 3))
+    HDR_img = np.zeros((height, width, 3), dtype='float32')
     for c in range(0, 3):
         img0 = np.power(imgs[0][:,:,c], g_channel[c])
         img1 = np.power(imgs[1][:,:,c], g_channel[c])
@@ -45,7 +45,7 @@ def alg1():
 
 def alg2():
     print("Start alg2")
-    HDR_img = np.zeros((height, width, 3))
+    HDR_img = np.zeros((height, width, 3), dtype='float32')
     for c in range(0, 3):
         img0 = np.power(imgs[0][:,:,c], g_channel[c])
         img1 = np.power(imgs[1][:,:,c], g_channel[c])
@@ -75,7 +75,6 @@ def plot_hist(img, alg=1):
     plt.gcf().clear()
 
 hdr1 = alg1()
-print hdr1
 hdr2 = alg2()
 plot_hist(hdr1,alg=1)
 plot_hist(hdr2,alg=2)
