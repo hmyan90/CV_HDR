@@ -14,13 +14,10 @@ except:
     
 # Read images, crop middle part
 img_dir="Part1_fig/"
-data_path=os.path.join(img_dir,'*jpeg')
-files=glob.glob(data_path)
-nfiles=sorted(files)
-print(nfiles)
+nfiles = ["020", "030", "045", "060", "090", "125", "180", "250", "350", "500", "750"] #, "1000", "1500", "2000", "3000"]
 rgb=list()
 for fl in nfiles:
-    img=cv2.imread(fl)
+    img=cv2.imread(img_dir+fl+'.jpeg')
     height, width=img.shape[:2]
     size = 500
     patch=img[(height/2-size):(height/2+size),(width/2-size):(width/2+size)] # [2*size, 2*size, 3]
@@ -31,7 +28,7 @@ rgb_value=array(rgb) # [number_of_image, 3]
 print('The RBG of each image is ', rgb_value)
 
 # Plot below
-T=[1./20,1./30,1./45,1./60,1./90,1./125,1./180,1./250,1./350,1./500, 1./750]
+T=[1./20,1./30,1./45,1./60,1./90,1./125,1./180,1./250,1./350,1./500, 1./750] #, 1./1000, 1./1500, 1./2000, 1./3000]
 logT=np.log2(T)
 colors = ['B', 'G', 'R']
 for channel, col in enumerate(colors):
@@ -62,8 +59,8 @@ for channel, col in enumerate(colors):
     B_prime_g = np.power(B_prime, g)
     plt.plot(T,B_prime_g)      
     plt.xlabel('T(s)')
-    plt.ylabel('B\'^g^')
+    plt.ylabel('B\'$^{g}$')
     plt.title('%s Channel' %col)
-    plt.savefig('part1_plot/B\'^g^_vs_T_%s_channel.jpg' %col)
+    plt.savefig('part1_plot/B\'$^{g}$_vs_T_%s_channel.jpg' %col)
     plt.gcf().clear()
     
