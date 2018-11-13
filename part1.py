@@ -59,8 +59,8 @@ for channel, col in enumerate(colors):
     B_prime_g = np.power(B_prime, g)
     plt.plot(T,B_prime_g)      
     plt.xlabel('T(s)')
-    plt.ylabel('B\'$^{g}$')
+    plt.ylabel(r'$\mathregular{B\'^g}$')
     plt.title('%s Channel' %col)
-    plt.savefig('part1_plot/B\'$^{g}$_vs_T_%s_channel.jpg' %col)
+    plt.savefig('part1_plot/B\'^g_vs_T_%s_channel.jpg' %col)
     plt.gcf().clear()
     
