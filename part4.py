@@ -15,12 +15,13 @@ except:
     
 # Read images
 img_dir="Part2_fig/"
-three_files = ["3000.jpeg", "1000.jpeg", "500.jpeg"]
-time = [1./3000, 1./1000, 1./500]
-a_list = [1, 3, 6]
-g_channel = [2.061331, 2.786699, 2.768208] # get from Part1
+three_files = ["4425.JPG", "1000.JPG", "0350.JPG"]
+time = [1./4425, 1./1000, 1./250]
+a_list = [1., 4425./1000, 4425./350]
+g_channel = [2.465, 2.510, 2.518] # get from Part1
+colors = ['b', 'g', 'r']
 
-height, width = 2448, 2448
+height, width = 3264, 2448
 imgs = []
 for i in range(0, len(three_files)):
     imgs.append(cv2.imread(img_dir+three_files[i]))
@@ -61,12 +62,11 @@ def alg2():
                     HDR_img[h][w][c] = img0[h][w]/a_list[0]
     return HDR_img
 
-def tomemap(hdr, alg=1):
+def tonemap(hdr, alg=1):
     tonemapDrago = cv2.createTonemapDrago(1.0, 0.7)
     ldrDrago = tonemapDrago.process(hdr)
     ldrDrago = 3 * ldrDrago
     cv2.imwrite("part4_plot/hdr%d.jpg" %alg, ldrDrago * 255)
 
-tomemap(alg1(), alg=1)
-tomemap(alg2(), alg=2)
-
+tonemap(alg1(), alg=1)
+tonemap(alg2(), alg=2)
