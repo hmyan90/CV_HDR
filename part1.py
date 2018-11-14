@@ -26,7 +26,7 @@ for fl in nfiles:
     rgb.append(patch_rgb)
 
 rgb_value=array(rgb) # [number_of_image, 3]
-print('The RBG of each image is ', rgb_value)
+print('The BGR of each image is ', rgb_value)
 
 # Calculate B'(T), logB', B'^g 
 T=[1./60, 1./90, 1./125, 1./180, 1./250, 1./350, 1./500, 1./750, 1./1000, 1./1500, 1./2000, 1./3000]

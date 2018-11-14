@@ -15,9 +15,8 @@ except:
     
 # Read images
 img_dir="Part2_fig/"
-three_files = ["4425.JPG", "1000.JPG", "0350.JPG"]
-time = [1./4425, 1./1000, 1./350]
-a_list = [1., 4425./1000, 4425./350]
+three_files = ["6667.JPG", "1500.JPG", "0250.JPG"]
+a_list = [1., 6667./1000, 6667./250]
 g_channel = [2.465, 2.510, 2.518] # get from Part1
 colors = ['b', 'g', 'r']
 
@@ -27,18 +26,16 @@ for i in range(0, len(three_files)):
     imgs.append(cv2.imread(img_dir+three_files[i]))
 
 def alg1():
-    print("Start alg1")
+    print("Start alg1, takes several minutes")
 
     HDR_img = np.zeros((height, width, 3), dtype='float32')
     img0, img1, img2 = imgs[0], imgs[1], imgs[2]
 
     for h in range(0, height):
         for w in range(0, width):
-            # if img2[h][w][0] < 255 and img2[h][w][1] < 255 and img2[h][w][2] < 255:
             if img2[h][w].max() < 255:
                 for c in range(0, 3):
                     HDR_img[h][w][c] = np.power(img2[h][w][c], g_channel[c])/a_list[2]
-            # elif img1[h][w][0] < 255 and img1[h][w][1] < 255 and img1[h][w][2] < 255:
             elif img2[h][w].max() < 255:
                 for c in range(0, 3):
                     HDR_img[h][w][c] = np.power(img1[h][w][c], g_channel[c])/a_list[1]       
@@ -50,7 +47,7 @@ def alg1():
     return HDR_img
 
 def alg2():
-    print("Start alg2")
+    print("Start alg2, takes several minutes")
     HDR_img = np.zeros((height, width, 3), dtype='float32')
     img0, img1, img2 = imgs[0], imgs[1], imgs[2]
 
