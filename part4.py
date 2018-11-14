@@ -16,7 +16,7 @@ except:
 # Read images
 img_dir="Part2_fig/"
 three_files = ["4425.JPG", "1000.JPG", "0350.JPG"]
-time = [1./4425, 1./1000, 1./250]
+time = [1./4425, 1./1000, 1./350]
 a_list = [1., 4425./1000, 4425./350]
 g_channel = [2.465, 2.510, 2.518] # get from Part1
 colors = ['b', 'g', 'r']
@@ -28,38 +28,51 @@ for i in range(0, len(three_files)):
 
 def alg1():
     print("Start alg1")
-    HDR_img = np.zeros((height, width, 3), dtype='float32')
-    for c in range(0, 3):
-        img0 = np.power(imgs[0][:,:,c], g_channel[c])
-        img1 = np.power(imgs[1][:,:,c], g_channel[c])
-        img2 = np.power(imgs[2][:,:,c], g_channel[c])
 
-        for h in range(0, height):
-            for w in range(0, width):
-                if imgs[2][h][w][c] < 255: # use third image
-                    HDR_img[h][w][c] = img2[h][w]/a_list[2]
-                elif imgs[1][h][w][c] < 255: # use second image
-                    HDR_img[h][w][c] = img1[h][w]/a_list[1]
-                else: # use first image
-                    HDR_img[h][w][c] = img0[h][w]/a_list[0]
+    HDR_img = np.zeros((height, width, 3), dtype='float32')
+    img0, img1, img2 = imgs[0], imgs[1], imgs[2]
+
+    for h in range(0, height):
+        for w in range(0, width):
+            # if img2[h][w][0] < 255 and img2[h][w][1] < 255 and img2[h][w][2] < 255:
+            if img2[h][w].max() < 255:
+                for c in range(0, 3):
+                    HDR_img[h][w][c] = np.power(img2[h][w][c], g_channel[c])/a_list[2]
+            # elif img1[h][w][0] < 255 and img1[h][w][1] < 255 and img1[h][w][2] < 255:
+            elif img2[h][w].max() < 255:
+                for c in range(0, 3):
+                    HDR_img[h][w][c] = np.power(img1[h][w][c], g_channel[c])/a_list[1]       
+            else:
+                for c in range(0, 3):
+                    HDR_img[h][w][c] = np.power(img0[h][w][c], g_channel[c])/a_list[0]
+
+    HDR_img = np.array(HDR_img, dtype='float32')
     return HDR_img
 
 def alg2():
     print("Start alg2")
     HDR_img = np.zeros((height, width, 3), dtype='float32')
-    for c in range(0, 3):
-        img0 = np.power(imgs[0][:,:,c], g_channel[c])
-        img1 = np.power(imgs[1][:,:,c], g_channel[c])
-        img2 = np.power(imgs[2][:,:,c], g_channel[c])
+    img0, img1, img2 = imgs[0], imgs[1], imgs[2]
 
-        for h in range(0, height):
-            for w in range(0, width):
-                if imgs[2][h][w][c] < 255: # use all three images
-                    HDR_img[h][w][c] = (img2[h][w]/a_list[2] + img1[h][w]/a_list[1] + img0[h][w]/a_list[0])/3.
-                elif imgs[1][h][w][c] < 255: # use second and first image
-                    HDR_img[h][w][c] = (img1[h][w]/a_list[1] + img0[h][w]/a_list[0])/2.
-                else: # use first image
-                    HDR_img[h][w][c] = img0[h][w]/a_list[0]
+    for h in range(0, height):
+        for w in range(0, width):
+            if img2[h][w].max() < 255:
+                for c in range(0, 3):
+                    i2 = np.power(img2[h][w][c], g_channel[c])/a_list[2] 
+                    i1 = np.power(img1[h][w][c], g_channel[c])/a_list[1] 
+                    i0 = np.power(img0[h][w][c], g_channel[c])/a_list[0]
+                    HDR_img[h][w][c] = (i2+i1+i0)/3.
+            elif img2[h][w].max() < 255:
+                for c in range(0, 3):
+                    i1 = np.power(img1[h][w][c], g_channel[c])/a_list[1] 
+                    i0 = np.power(img0[h][w][c], g_channel[c])/a_list[0]
+                    HDR_img[h][w][c] = (i1+i0)/2.     
+            else:
+                for c in range(0, 3):
+                    i0 = np.power(img0[h][w][c], g_channel[c])/a_list[0]
+                    HDR_img[h][w][c] = i0
+
+    HDR_img = np.array(HDR_img, dtype='float32')
     return HDR_img
 
 def tonemap(hdr, alg=1):
@@ -70,3 +83,4 @@ def tonemap(hdr, alg=1):
 
 tonemap(alg1(), alg=1)
 tonemap(alg2(), alg=2)
+

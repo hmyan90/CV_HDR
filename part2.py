@@ -16,7 +16,7 @@ except:
 # Read images
 img_dir="Part2_fig/"
 three_files = ["4425.JPG", "1000.JPG", "0350.JPG"]
-time = [1./4425, 1./1000, 1./250]
+time = [1./4425, 1./1000, 1./350]
 a_list = [1., 4425./1000, 4425./350]
 g_channel = [2.465, 2.510, 2.518] # get from Part1
 colors = ['b', 'g', 'r']
