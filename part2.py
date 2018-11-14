@@ -15,11 +15,11 @@ except:
     
 # Read images
 img_dir="Part2_fig/"
-three_files = ["3000.jpeg", "1000.jpeg", "500.jpeg"]
-time = [1./3000, 1./1000, 1./500]
-a_list = [1, 3, 6]
-g_channel = [2.061331, 2.786699, 2.768208] # get from Part1
-colors = ['B', 'G', 'R']
+three_files = ["4425.JPG", "1000.JPG", "0350.JPG"]
+time = [1./4425, 1./1000, 1./250]
+a_list = [1., 4425./1000, 4425./350]
+g_channel = [2.465, 2.510, 2.518] # get from Part1
+colors = ['b', 'g', 'r']
 
 # Plot
 for i in range(0, len(three_files)):
@@ -29,10 +29,11 @@ for i in range(0, len(three_files)):
         b_prime_g = np.power(img_channel, g_channel[channel])
         plt.subplot(2,2,channel+1)
         _max = int(pow(255,g_channel[channel]))+1
-        plt.hist(b_prime_g.ravel(),bins=25,range=[0, _max])
-        plt.title('%s Channel' %col)
+        plt.hist(b_prime_g.ravel(),bins=25,range=[0, _max],color=col.lower())
+        plt.title('%s Channel' %col.upper())
 
-    plt.savefig('part2_plot/B\'_vs_T_image_%s_channel_%s.jpg' %(three_files[i],col))
+    plt.gcf().set_size_inches(18.5, 10.5)
+    plt.savefig('part2_plot/B\'_vs_T_image_%s.jpg' %(three_files[i]))
     plt.gcf().clear()
 
     if i > 0:
@@ -43,9 +44,9 @@ for i in range(0, len(three_files)):
             b_prime_g_div_a=np.divide(b_prime_g, a)
             plt.subplot(2,2,channel+1)
             _max = int(pow(255,g_channel[channel])/a)+1
-            plt.hist(b_prime_g_div_a.ravel(),bins=25,range=[0, _max])
-            plt.title('%s Channel' %col)
+            plt.hist(b_prime_g_div_a.ravel(),bins=25,range=[0, _max], color=col.lower())
+            plt.title('%s Channel' %col.upper())
         
-        plt.savefig('part2_plot/B\'_div_a_vs_T_image_%s_channel_%s.jpg' %(three_files[i],col))
+        plt.gcf().set_size_inches(18.5, 10.5)
+        plt.savefig('part2_plot/B\'_div_a_vs_T_image_%s.jpg' %(three_files[i]))
         plt.gcf().clear()
-
