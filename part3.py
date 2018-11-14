@@ -15,12 +15,13 @@ except:
     
 # Read images
 img_dir="Part2_fig/"
-three_files = ["3000.jpeg", "1000.jpeg", "500.jpeg"]
-time = [1./3000, 1./1000, 1./500]
-a_list = [1, 3, 6]
-g_channel = [2.061331, 2.786699, 2.768208] # get from Part1
+three_files = ["4425.JPG", "1000.JPG", "0350.JPG"]
+time = [1./4425, 1./1000, 1./250]
+a_list = [1., 4425./1000, 4425./350]
+g_channel = [2.465, 2.510, 2.518] # get from Part1
+colors = ['b', 'g', 'r']
 
-height, width = 2448, 2448
+height, width = 3264, 2448
 imgs = []
 for i in range(0, len(three_files)):
     imgs.append(cv2.imread(img_dir+three_files[i]))
@@ -68,9 +69,10 @@ def plot_hist(img, alg=1):
         img_channel=img[:,:,channel]
         plt.subplot(2,2,channel+1)
         _max = int(pow(255, g_channel[channel])) + 1
-        plt.hist(img_channel.ravel(),bins=25,range=[0,_max],color=col)
+        plt.hist(img_channel.ravel(),bins=25,range=[0,_max],color=col.lower())
         plt.title('%s Channel' %color[channel].upper())
     
+    plt.gcf().set_size_inches(18.5, 10.5)
     plt.savefig('part3_plot/alg%d_histogram.jpg' %(alg))
     plt.gcf().clear()
 
@@ -78,4 +80,3 @@ hdr1 = alg1()
 hdr2 = alg2()
 plot_hist(hdr1,alg=1)
 plot_hist(hdr2,alg=2)
-
