@@ -20,7 +20,7 @@ for fl in nfiles:
     img=cv2.imread(img_dir+fl+'.JPG')
     height, width=img.shape[:2]
     size = 100
-    patch=img[(height/2-size):(height/2+size),(width/2-size):(width/2+size)] # [2*size, 2*size, 3]
+    patch=img[(int(height/2)-size):(int(height/2)+size),(int(width/2)-size):(int(width/2)+size)] # [2*size, 2*size, 3]
     cv2.imwrite("part1_plot/%s.png" %fl, img)
     patch_rgb=patch.mean(axis=(0,1))
     rgb.append(patch_rgb)
